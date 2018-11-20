@@ -24,8 +24,8 @@ export default function({coinKey, topSection}){
           >
             <CoinHeaderGrid 
               topSection={topSection} 
-              name={coin.CoinName} s
-              ymbol={coin.Symbol} />
+              name={coin.CoinName} 
+              symbol={coin.Symbol} />
             <CoinImage coin={coin} />
           </TileClass>
         )
