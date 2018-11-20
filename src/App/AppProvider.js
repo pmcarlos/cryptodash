@@ -20,7 +20,8 @@ export class AppProvider extends Component {
       removeCoin: this.removeCoin,
       isInFavorites: this.isInFavorites,
       confirmFavorites: this.confirmFavorites,
-      setFilteredCoins: this.setFilteredCoins
+      setFilteredCoins: this.setFilteredCoins,
+      setCurrentFavorite: this.setCurrentFavorite
     }
   }
 
@@ -69,22 +70,40 @@ export class AppProvider extends Component {
   isInFavorites = key => _.includes(this.state.favorites, key)
 
   confirmFavorites =  () => {
+    const currentFavorite = this.state.favorites[0]
     this.setState({
       firstVisit: false,
-      page: 'dashboard'
+      page: 'dashboard',
+      currentFavorite
     }, () => {
       this.fetchPrices()
     })
 
     localStorage.setItem('cryptoDash', JSON.stringify({
-      favorites: this.state.favorites
+      favorites: this.state.favorites,
+      currentFavorite
     }))
   }
 
   savedSettings() {
     let cryptoDashData = JSON.parse(localStorage.getItem('cryptoDash'))
 
-    return !cryptoDashData ? {page: 'settings', firstVisit: true} : {favorites: cryptoDashData.favorites}
+    return !cryptoDashData 
+      ? {page: 'settings', firstVisit: true} 
+      : {
+          favorites: cryptoDashData.favorites,
+          currentFavorite: cryptoDashData.currentFavorite
+        }
+  }
+
+  setCurrentFavorite = currentFavorite => {
+    this.setState({
+      currentFavorite
+    })
+    localStorage.setItem('cryptoDash', JSON.stringify({
+      ...JSON.parse(localStorage.getItem('cryptoDash')),
+      currentFavorite
+    }))
   }
   setPage = page => this.setState({page})
 
