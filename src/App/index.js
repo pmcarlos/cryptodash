@@ -3,14 +3,17 @@ import './App.css';
 import styled, {css} from 'styled-components'
 import AppLayout from './AppLayout'
 import AppBar from './AppBar'
-import WelcomeMessage from './WelcomeMessage';
+import WelcomeMessage from './WelcomeMessage'
+import {AppProvider} from './AppProvider'
 
 class App extends Component {
   render() {
     return (
       <AppLayout >
-        <AppBar />
-        <WelcomeMessage />
+        <AppProvider>
+          <AppBar />
+          <WelcomeMessage />
+        </AppProvider>
       </AppLayout>
     );
   }
