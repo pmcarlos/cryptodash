@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { AppContext } from '../App/AppProvider'
 import { SelectableTile, DeletableTile, DisabledTile } from '../Shared/Tile'
 import CoinHeaderGrid from './CoinHeaderGrid'
@@ -11,7 +12,9 @@ function clickCoinHandler(topSection, coinKey, addCoin, removeCoin) {
     addCoin(coinKey)
   }
 }
-
+const AlignCenter = styled.div`
+  text-align: center
+`
 export default function({coinKey, topSection}){
   return (
     <AppContext.Consumer>
@@ -26,7 +29,7 @@ export default function({coinKey, topSection}){
               topSection={topSection} 
               name={coin.CoinName} 
               symbol={coin.Symbol} />
-            <CoinImage coin={coin} />
+            <AlignCenter><CoinImage coin={coin} /></AlignCenter>
           </TileClass>
         )
         
