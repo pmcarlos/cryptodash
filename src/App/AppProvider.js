@@ -7,10 +7,28 @@ export class AppProvider extends Component {
     super(props)
     this.state = {
       page: 'dashboard',
-      setPage: this.setPage
+      ...this.savedSettings(),
+      setPage: this.setPage,
+      confirmFavorites: this.confirmFavorites
     }
   }
 
+  confirmFavorites = () => {
+    this.setState({
+      firstVisit: false,
+      page: 'dashboard'
+    })
+
+    localStorage.setItem('cryptoDash', JSON.stringify({
+      test: 'hello'
+    }))
+  }
+
+  savedSettings() {
+    let cryptoDashData = JSON.parse(localStorage.getItem('cryptoDash'))
+
+    return !cryptoDashData ? {page: 'dashboard', firstVisit: true} : {}
+  }
   setPage = page => this.setState({page})
 
   render(){
